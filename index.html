@@ -38,18 +38,21 @@
         }
 
         .photo {
-            margin: 120px 0;
+            margin: 140px 0;
             text-align: center;
+            opacity: 0;
+            transform: translateY(60px);
+            transition: all 1.2s ease;
+        }
+
+        .photo.show {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .photo img {
             width: 100%;
             max-width: 1000px;
-            transition: transform 0.6s ease;
-        }
-
-        .photo img:hover {
-            transform: scale(1.03);
         }
 
         .caption {
@@ -85,7 +88,31 @@
         <div class="caption">JAPAN · 2023</div>
     </div>
 
+    <div class="photo">
+        <img src="https://picsum.photos/1200/800?random=4">
+        <div class="caption">ICELAND · 2022</div>
+    </div>
+
 </section>
+
+<script>
+    const photos = document.querySelectorAll('.photo');
+
+    function revealOnScroll() {
+        const triggerBottom = window.innerHeight * 0.85;
+
+        photos.forEach(photo => {
+            const photoTop = photo.getBoundingClientRect().top;
+
+            if(photoTop < triggerBottom) {
+                photo.classList.add('show');
+            }
+        });
+    }
+
+    window.addEventListener('scroll', revealOnScroll);
+    revealOnScroll();
+</script>
 
 </body>
 </html>
